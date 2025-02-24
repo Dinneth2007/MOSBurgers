@@ -1,12 +1,15 @@
 package edu.icet.ecom.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 @Entity
 @Table(name = "categories")
 @Data
-
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class CatergoryEntity {
 
         @Id

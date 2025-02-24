@@ -6,6 +6,8 @@ import edu.icet.ecom.service.CatergoryDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CatergorDAOImpl implements CatergoryDAO {
     @Autowired
@@ -20,4 +22,10 @@ public class CatergorDAOImpl implements CatergoryDAO {
     public void deleteCatergory(Long id) {
         repo.deleteById(id);
     }
+
+    @Override
+    public List<CatergoryEntity> getALl() {
+        return repo.findAll();
+    }
+
 }

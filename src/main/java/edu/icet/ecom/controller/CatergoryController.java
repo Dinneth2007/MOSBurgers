@@ -5,6 +5,8 @@ import edu.icet.ecom.service.CatergoryDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/catergory")
 public class CatergoryController {
@@ -17,5 +19,9 @@ public class CatergoryController {
     @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable Long id){
         dao.deleteCatergory(id);
+    }
+    @GetMapping("/get-all")
+    List<CatergoryEntity> getAllCatergory(){
+        return dao.getALl();
     }
 }
