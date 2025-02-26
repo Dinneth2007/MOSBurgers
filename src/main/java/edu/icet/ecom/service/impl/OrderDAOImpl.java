@@ -22,6 +22,7 @@ public class OrderDAOImpl implements OrderDAO {
     public boolean placeOrder(OrderEntity entity) {
        Double orderTotal=0.0;
         for (OrderItemEntity ent: entity.getOrderItems()){
+            ent.setOrder(entity);
             orderTotal+=ent.getSubtotal();
             System.out.println(ent.getSubtotal());
             System.out.println(orderTotal);
