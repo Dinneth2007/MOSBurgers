@@ -39,7 +39,9 @@ public class OrderDAOImpl implements OrderDAO {
             orderTotal+=ent.getSubtotal();
             System.out.println(ent.getSubtotal());
             System.out.println(orderTotal);
-            if(ent.getQuantity()<=0){
+            MenuItemEntity menuItem = menuItemRepo.findById(ent.getMenuItem().getId()).orElseThrow(()->new RuntimeException());
+
+            if(ent.getQuantity()>menuItem.getStockQuantity()){
                 throw new RuntimeException("Insufficient stock for menu item");
             }
 
