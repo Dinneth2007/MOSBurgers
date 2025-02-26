@@ -4,4 +4,5 @@ import edu.icet.ecom.entity.CustomerEntity;
 
 public interface CustomerDao {
     void add(CustomerEntity entity);
+    void delete(Long id);
 }

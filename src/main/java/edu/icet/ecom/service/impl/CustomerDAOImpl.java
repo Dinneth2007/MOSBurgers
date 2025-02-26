@@ -14,4 +14,9 @@ public class CustomerDAOImpl implements CustomerDao {
     public void add(CustomerEntity entity) {
         repo.save(entity);
     }
+
+    @Override
+    public void delete(Long id) {
+        repo.deleteById(id);
+    }
 }

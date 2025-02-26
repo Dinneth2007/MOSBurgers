@@ -1,5 +1,6 @@
 package edu.icet.ecom.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.persistence.criteria.Order;
 import lombok.Data;
@@ -17,6 +18,8 @@ public class OrderItemEntity {
     private Double subtotal;
     @ManyToOne
     @JoinColumn(name = "order_id")
+    @JsonBackReference //Serialization, Reccurence Issue (Could have been solved using DTOs)
+
     private OrderEntity order;
     @ManyToOne
     private MenuItemEntity menuItem;

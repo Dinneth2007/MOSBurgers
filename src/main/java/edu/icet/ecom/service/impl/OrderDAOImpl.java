@@ -3,19 +3,24 @@ package edu.icet.ecom.service.impl;
 import edu.icet.ecom.entity.MenuItemEntity;
 import edu.icet.ecom.entity.OrderEntity;
 import edu.icet.ecom.entity.OrderItemEntity;
+import edu.icet.ecom.repository.CustomerRepo;
 import edu.icet.ecom.repository.MenuItemRepo;
 import edu.icet.ecom.repository.OrderItemRepo;
 import edu.icet.ecom.repository.OrderRepo;
 import edu.icet.ecom.service.OrderDAO;
+import edu.icet.ecom.util.OrderStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class OrderDAOImpl implements OrderDAO {
+    @Autowired
+    CustomerRepo customerRepo;
     @Autowired
     OrderRepo repo;
     @Autowired
@@ -25,6 +30,8 @@ public class OrderDAOImpl implements OrderDAO {
     @Override
     @Transactional
     public boolean placeOrder(OrderEntity entity) {
+        //validation if a customer exists
+        customerRepo.findById(entity.getCustomer().getId()).orElseThrow(()->new RuntimeException());
        Double orderTotal=0.0;
         for (OrderItemEntity ent: entity.getOrderItems()){
             setSubtotalAndUpdateStock(ent);
@@ -46,6 +53,7 @@ public class OrderDAOImpl implements OrderDAO {
         return true;
 
     }
+    @Transactional
     public void setSubtotalAndUpdateStock(OrderItemEntity entity){
         MenuItemEntity menuItem = menuItemRepo.findById(entity.getMenuItem().getId())
                 .orElseThrow(() -> new RuntimeException("Menu item not found"));
@@ -53,7 +61,24 @@ public class OrderDAOImpl implements OrderDAO {
         entity.setSubtotal(menuItem.getPrice()*entity.getQuantity());
     }
     @Override
-    public void updateStatus(OrderEntity entity) {
+    public void updateOrderStatus(Long id, OrderStatus status) {
+        OrderEntity orderEntity = repo.findById(id).orElseThrow();
+        orderEntity.setStatus(status);
+        repo.save(orderEntity);
+    }
+
+    @Override
+    public void deleteOrder(Long id) {
+        repo.deleteById(id);
+    }
+
+    @Override
+    public List<OrderEntity> getAll() {
+        return repo.findAll();
+    }
+
+    @Override
+    public void serchByCuustomer(Long CustomerId) {
 
     }
 }
