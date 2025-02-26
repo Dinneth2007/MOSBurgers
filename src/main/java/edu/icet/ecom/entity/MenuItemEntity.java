@@ -20,7 +20,7 @@ public class MenuItemEntity {
     private Long id;
     private String name;
     private String description;
-    private BigDecimal price;
+    private Double price;
     @ManyToOne
     private CatergoryEntity category;
     private Integer stockQuantity;
