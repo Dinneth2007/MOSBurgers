@@ -13,7 +13,7 @@ import java.util.List;
 public class MenuController {
     @Autowired
     MenuItemDAO dao;
-    @GetMapping("/add")
+    @PostMapping("/add")
     public void addMenuItem(@RequestBody  MenuItemEntity itm){
         dao.addItem(itm);
     }
@@ -33,5 +33,9 @@ public class MenuController {
     @PatchMapping("/update-status")
     void updateStatus(@RequestBody MenuItemEntity entity){
         dao.updatestatus(entity);
+    }
+    void refresh(){
+        dao.checkforStock();
+
     }
 }

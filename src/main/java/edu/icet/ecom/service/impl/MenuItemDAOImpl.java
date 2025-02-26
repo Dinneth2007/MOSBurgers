@@ -43,4 +43,15 @@ public class MenuItemDAOImpl implements MenuItemDAO {
         repo.save(entity);
     }
 
+    @Override
+    public void checkforStock() {
+        for(MenuItemEntity ent: repo.findAll()){
+            if (ent.getStockQuantity()<=0){
+                ent.setActive(false);
+
+            }
+
+        }
+    }
+
 }

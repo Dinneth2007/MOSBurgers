@@ -11,4 +11,5 @@ public interface MenuItemDAO {
     List<MenuItemEntity> getAll();
     MenuItemEntity getById(Long id);
     void updatestatus(MenuItemEntity entity);
+    void checkforStock();
 }
