@@ -26,8 +26,11 @@ public class MenuItemDAOImpl implements MenuItemDAO {
     }
 
     @Override
-    public void updateById(MenuItemEntity item) {
-        repo.save(item);
+    public void updateStock(MenuItemEntity item) {
+
+        MenuItemEntity menuItem = repo.findById(item.getId()).orElseThrow(() -> new RuntimeException());
+        menuItem.setStockQuantity(item.getStockQuantity());
+        repo.save(menuItem);
     }
 
     @Override

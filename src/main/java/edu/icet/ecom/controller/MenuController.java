@@ -27,7 +27,7 @@ public class MenuController {
     }
     @PutMapping("/update-item")
     void update(@RequestBody MenuItemEntity entity){
-        dao.updateById(entity);
+        dao.updateStock(entity);
 
     }
     @PatchMapping("/update-status")
